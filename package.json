@@ -75,6 +75,7 @@
     "fs",
     "file-system",
     "print",
+    "concatenate",
     "cat"
   ]
 }
