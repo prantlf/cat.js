@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "run",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/bin/cat.js",
+      "cwd": "${workspaceRoot}/test",
+      "args": [
+        "-t", "in/control-chars.txt"
+      ]
+    }
+  ]
+}

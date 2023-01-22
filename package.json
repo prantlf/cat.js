@@ -1,0 +1,80 @@
+{
+  "name": "@unixcompat/cat.js",
+  "description": "Concatenates and prints files on the standard output like the \"cat\" command.",
+  "version": "1.0.0",
+  "homepage": "https://github.com/prantlf/cat.js#readme",
+  "author": {
+    "name": "Ferdinand Prantl",
+    "email": "prantlf@gmail.com",
+    "url": "http://prantl.tk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prantlf/cat.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/prantlf/cat.js/issues"
+  },
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/prantlf/cat.js/blob/master/LICENSE"
+    }
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "bin": {
+    "cat.js": "bin/cat.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "scripts": {
+    "lint": "denolint",
+    "check": "test/run",
+    "test": "denolint && c8 test/run"
+  },
+  "c8": {
+    "check-coverage": true,
+    "reporter": [
+      "text",
+      "lcov"
+    ],
+    "branches": 100,
+    "lines": 100,
+    "functions": 100,
+    "statements": 100
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "failComment": false
+        }
+      ],
+      "@semantic-release/git"
+    ]
+  },
+  "dependencies": {
+    "os-lock": "2.0.0"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "6.0.2",
+    "@semantic-release/git": "10.0.1",
+    "c8": "7.12.0",
+    "denolint": "2.0.5"
+  },
+  "keywords": [
+    "fs",
+    "file-system",
+    "print",
+    "cat"
+  ]
+}

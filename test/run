@@ -1,0 +1,115 @@
+#!/bin/sh
+
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
+cd "$SCRIPTPATH"
+
+echo "cat -h"
+../bin/cat.js -h
+if [ "$?" != "0" ]; then exit 1; fi
+
+echo "cat -V"
+../bin/cat.js -V
+if [ "$?" != "0" ]; then exit 1; fi
+
+echo "cat -z"
+../bin/cat.js -z
+if [ "$?" != "1" ]; then exit 1; fi
+
+echo stdout | ../bin/cat.js -l
+if [ "$?" != "0" ]; then exit 1; fi
+
+../bin/cat.js -l invalid
+if [ "$?" != "1" ]; then exit 1; fi
+
+check() {
+	code=$1
+	actual=$2
+	name=$3
+	if [ "$code" != "0" ]; then exit 1; fi
+	echo "comparing the result"
+	local expected=`cat out/$name.txt`
+	if [ "$actual" != "$expected" ]; then
+		echo "---------------------------------------- actual:"
+		echo "$actual"
+		echo "---------------------------------------- expected:"
+		echo "$expected"
+		echo "----------------------------------------"
+		exit 1
+	fi
+}
+
+echo "cat -- in/control-chars.txt in/one-empty-line.txt in/two-empty-lines.txt"
+actual=`../bin/cat.js -- in/control-chars.txt in/one-empty-line.txt in/two-empty-lines.txt`
+check $? "$actual" "default"
+
+echo "cat -s in/one-empty-line.txt in/two-empty-lines.txt"
+actual=`../bin/cat.js -s in/one-empty-line.txt in/two-empty-lines.txt`
+check $? "$actual" "s"
+
+echo "cat --squeeze-blank in/one-empty-line.txt in/two-empty-lines.txt"
+actual=`../bin/cat.js --squeeze-blank in/one-empty-line.txt in/two-empty-lines.txt`
+check $? "$actual" "s"
+
+echo "cat -n in/one-empty-line.txt in/two-empty-lines.txt"
+actual=`../bin/cat.js -n in/one-empty-line.txt in/two-empty-lines.txt`
+check $? "$actual" "n"
+
+echo "cat -ns in/one-empty-line.txt in/two-empty-lines.txt"
+actual=`../bin/cat.js -ns in/one-empty-line.txt in/two-empty-lines.txt`
+check $? "$actual" "ns"
+
+echo "cat -bu in/one-empty-line.txt in/two-empty-lines.txt"
+actual=`../bin/cat.js -bu in/one-empty-line.txt in/two-empty-lines.txt`
+check $? "$actual" "b"
+
+echo "cat -bs in/one-empty-line.txt in/two-empty-lines.txt"
+actual=`../bin/cat.js -bs in/one-empty-line.txt in/two-empty-lines.txt`
+check $? "$actual" "bs"
+
+echo "cat -E in/one-empty-line.txt"
+actual=`../bin/cat.js -E in/one-empty-line.txt`
+check $? "$actual" "capital-e"
+
+echo "cat -nE in/one-empty-line.txt"
+actual=`../bin/cat.js -nE in/one-empty-line.txt`
+check $? "$actual" "ne"
+
+echo "cat -bE in/one-empty-line.txt"
+actual=`../bin/cat.js -bE in/one-empty-line.txt`
+check $? "$actual" "be"
+
+echo "cat -T in/control-chars.txt"
+actual=`../bin/cat.js -T in/control-chars.txt`
+check $? "$actual" "capital-t"
+
+echo "cat -v in/control-chars.txt"
+actual=`../bin/cat.js -v in/control-chars.txt`
+check $? "$actual" "v"
+
+echo "cat -vT in/control-chars.txt"
+actual=`../bin/cat.js -vT in/control-chars.txt`
+check $? "$actual" "vt"
+
+echo "cat -e in/control-chars.txt in/one-empty-line.txt"
+actual=`../bin/cat.js -e in/control-chars.txt in/one-empty-line.txt`
+check $? "$actual" "e"
+
+echo "cat -t in/control-chars.txt"
+actual=`../bin/cat.js -t in/control-chars.txt`
+check $? "$actual" "t"
+
+echo "cat -vE in/control-chars.txt in/one-empty-line.txt"
+actual=`../bin/cat.js -vE in/control-chars.txt in/one-empty-line.txt`
+check $? "$actual" "ve"
+
+echo "cat -vET in/control-chars.txt in/one-empty-line.txt"
+actual=`../bin/cat.js -vET in/control-chars.txt in/one-empty-line.txt`
+check $? "$actual" "vet"
+
+echo "cat -A in/control-chars.txt in/one-empty-line.txt"
+actual=`../bin/cat.js -A in/control-chars.txt in/one-empty-line.txt`
+check $? "$actual" "a"
+
+echo "done"
