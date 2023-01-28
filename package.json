@@ -28,6 +28,7 @@
   "bin": {
     "cat.js": "bin/cat.js"
   },
+  "type": "module",
   "files": [
     "bin"
   ],

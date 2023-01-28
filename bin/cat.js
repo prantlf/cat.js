@@ -1,7 +1,16 @@
 #!/usr/bin/env node
 
+import { createReadStream, readFileSync } from 'fs'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+
+function getPackage() {
+  const __dirname = dirname(fileURLToPath(import.meta.url))
+  return JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf8'))
+}
+
 const help = () => {
-  console.log(`${require('../package.json').description}
+  console.log(`${getPackage().description}
 
 Usage: cat.js [-AbeElnstTuv] [--] file...
 
@@ -33,8 +42,7 @@ Examples:
 
 const { argv } = process
 const args = []
-let   numberContent, dollar, numberAll, squeeze, tab, special
-let   lock, unlock
+let   numberContent, dollar, locking, numberAll, squeeze, tab, special
 
 function fail(message) {
   console.error(message)
@@ -70,7 +78,7 @@ for (let i = 2, l = argv.length; i < l; ++i) {
           dollar = flag
           return
         case 'l': case 'lock':
-          ({ lock, unlock } = require('os-lock'))
+          locking = import('os-lock')
           return
         case 'n': case 'number':
           numberAll = flag
@@ -91,7 +99,7 @@ for (let i = 2, l = argv.length; i < l; ++i) {
           if (!special) setSpecialNoTab(flag)
           return
         case 'V': case 'version':
-          console.log(require('../package.json').version)
+          console.log(getPackage().version)
           process.exit(0)
           break
         case 'h': case 'help':
@@ -119,7 +127,7 @@ if (!args.length) {
   args.push('-')
 }
 
-const { createReadStream } = require('fs')
+const { lock, unlock } = locking ? await locking : {}
 const { stdin, stdout } = process
 const numbering = numberContent || numberAll
 
@@ -173,11 +181,11 @@ const handleError = ({ message }) => {
   fail(message)
 }
 
-(async () => {
+try {
   let handleFile
 
   if (numbering || dollar || squeeze || special || tab) {
-    const readline = require('readline')
+    const readline = (await import('readline')).default
 
     /* c8 ignore next 5 */
     const pad = number => number > 99999 ? number : 
@@ -236,15 +244,18 @@ const handleError = ({ message }) => {
     handleFile = () => {
       const input = nextInput()
       if (!input) return
-      input.on('error', handleError)
-        .on('end', handleFile).pipe(stdout)
+      input
+        .on('end', handleFile)
+        .on('error', handleError)
+        .pipe(stdout)
+        .on('error', handleError)
     }
   }
 
   if (lock) await lock(stdout.fd, { exclusive: true })
   handleFile()
 /* c8 ignore next 4 */
-})().catch(({ message }) => {
+} catch({ message }) {
   console.error(message)
   process.exitCode = 1
-})
+}

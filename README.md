@@ -9,7 +9,7 @@ Concatenates and prints files on the standard output like the `cat` command.
 
 There are multi-platform file-system commands compatible with `cat` from UN*X implemented for Node.js in JavaScript, like [cat], but they have a different interface and a different behaviour than the `cat` command. Instead of reusing the knowledge of the `cat` command, you would have to learn their new interface. This project aims to provide the well-known interface of the `cat` command.
 
-See also other commands compatible with their counterparts from UN*X - [rm.js], [cp.js] and [mkdir.js].
+This package offers only command-line interface, because programmatic interface is provided by methods from [node:fs]. See also other commands compatible with their counterparts from UN*X - [rm.js], [cp.js] and [mkdir.js].
 
 ## Synopsis
 
@@ -41,7 +41,7 @@ $ yarn add -D @unixcompat/cat.js
 
 ## Command-line Interface
 
-See also [`man cat`] for the original documentation.
+See also `man cat` for the original [POSIX documentation] or for the extended [Linux implementation].
 
     Usage: cat.js [-AbeElnstTuv] [--] file...
 
@@ -70,6 +70,13 @@ See also [`man cat`] for the original documentation.
       $ cat.js a
       $ cat.js -s /tmp/a /tmp/b > /tmp/c
 
+## Differences
+
+The following options from the POSIX version are not supported, but they are accepted and ignored:
+
+    -u    write bytes from the input file to the standard output without delay
+          as each is read
+
 ## Contributing
 
 In lieu of a formal styleguide, take care to maintain the existing coding style.  Add unit tests for any new or changed functionality. Lint and test your code using `npm test`.
@@ -90,4 +97,6 @@ Licensed under the MIT license.
 [rm.js]: https://www.npmjs.com/package/@unixcompat/rm.js
 [cp.js]: https://www.npmjs.com/package/@unixcompat/cp.js
 [mkdir.js]: https://www.npmjs.com/package/@unixcompat/mkdir.js
-[`man cat`]: https://man7.org/linux/man-pages/man1/cat.1.html
+[POSIX documentation]: https://man7.org/linux/man-pages/man1/cat.1p.html
+[Linux implementation]: https://man7.org/linux/man-pages/man1/cat.1.html
+[node:fs]: https://nodejs.org/api/fs.html
