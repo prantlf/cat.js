@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/prantlf/cat.js/compare/v1.0.1...v1.0.2) (2023-03-05)
+
+
+### Bug Fixes
+
+* Use .mjs extension to enforce the module type ([8052955](https://github.com/prantlf/cat.js/commit/8052955b102d272ec4a5714fa47bd2f513e982d9))
+
 ## [1.0.1](https://github.com/prantlf/cat.js/compare/v1.0.0...v1.0.1) (2023-01-28)
 
 

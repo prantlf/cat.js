@@ -1,7 +1,7 @@
 {
   "name": "@unixcompat/cat.js",
   "description": "Concatenates and prints files on the standard output like the \"cat\" command.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/prantlf/cat.js#readme",
   "author": {
     "name": "Ferdinand Prantl",
