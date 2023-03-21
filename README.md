@@ -20,14 +20,16 @@ The following scripts from `package.json` won't work on Windows:
     cat src/umd-prolog.txt src/code.js src/umd-epilog.txt > dist/index.umd.js
     cp src/index.d.ts dist
     mv LICENSE doc
+    ln -s ../src src
 
 Replace them with the following ones, which run on any operating system which is supported by Node.js:
 
-    rm.js -rf dist
-    mkdir.js -p dist
-    cat.js src/umd-prolog.txt src/code.js src/umd-epilog.txt > dist/index.umd.js
-    cp.js src/index.d.ts dist
-    mv.js LICENSE doc
+    rm-j -rf dist
+    mkdir-j -p dist
+    cat-j src/umd-prolog.txt src/code.js src/umd-epilog.txt > dist/index.umd.js
+    cp-j src/index.d.ts dist
+    mv-j LICENSE doc
+    ln-j -s ../src src
 
 Notice that the only difference is the suffix `.js` behind the command names.
 
@@ -45,7 +47,7 @@ $ yarn add -D @unixcompat/cat.js
 
 See also `man cat` for the original [POSIX documentation] or for the extended [Linux implementation].
 
-    Usage: cat.js [-AbeElnstTuv] [--] file...
+    Usage: cat-j [-AbeElnstTuv] [--] file...
 
     Options:
       -A|--show-all          equivalent to -vET
@@ -69,8 +71,8 @@ See also `man cat` for the original [POSIX documentation] or for the extended [L
       If file is a single dash ("-") or absent, the standard input will be used.
 
     Examples:
-      $ cat.js a
-      $ cat.js -s /tmp/a /tmp/b > /tmp/c
+      $ cat-j a
+      $ cat-j -s /tmp/a /tmp/b > /tmp/c
 
 ## Differences
 

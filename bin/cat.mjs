@@ -12,7 +12,7 @@ function getPackage() {
 const help = () => {
   console.log(`${getPackage().description}
 
-Usage: cat.js [-AbeElnstTuv] [--] file...
+Usage: cat-j [-AbeElnstTuv] [--] file...
 
 Options:
   -A|--show-all          equivalent to -vET
@@ -36,8 +36,8 @@ Options:
   If file is a single dash ("-") or absent, the standard input will be used.
 
 Examples:
-  $ cat.js a
-  $ cat.js -s /tmp/a /tmp/b > /tmp/c`)
+  $ cat-j a
+  $ cat-j -s /tmp/a /tmp/b > /tmp/c`)
 }
 
 const { argv } = process
