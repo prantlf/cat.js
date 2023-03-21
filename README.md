@@ -9,7 +9,7 @@ Concatenates and prints files on the standard output like the `cat` command.
 
 There are multi-platform file-system commands compatible with `cat` from UN*X implemented for Node.js in JavaScript, like [cat], but they have a different interface and a different behaviour than the `cat` command. Instead of reusing the knowledge of the `cat` command, you would have to learn their new interface. This project aims to provide the well-known interface of the `cat` command.
 
-This package offers only command-line interface, because programmatic interface is provided by methods from [node:fs]. See also other commands compatible with their counterparts from UN*X - [rm.js], [cp.js], [mkdir.js] and [mv.js].
+This package offers only command-line interface, because programmatic interface is provided by methods from [node:fs]. See also other commands compatible with their counterparts from UN*X - [rm.js], [cp.js], [ln.js], [mkdir.js] and [mv.js].
 
 ## Synopsis
 
@@ -96,10 +96,11 @@ Licensed under the MIT license.
 [cat]: https://www.npmjs.com/package/cat
 [del-cli]: https://www.npmjs.com/package/del-cli
 [del]: https://www.npmjs.com/package/del
-[rm.js]: https://www.npmjs.com/package/@unixcompat/rm.js
+[ln.js]: https://www.npmjs.com/package/@unixcompat/ln.js
 [cp.js]: https://www.npmjs.com/package/@unixcompat/cp.js
 [mkdir.js]: https://www.npmjs.com/package/@unixcompat/mkdir.js
 [mv.js]: https://www.npmjs.com/package/@unixcompat/mv.js
+[rm.js]: https://www.npmjs.com/package/@unixcompat/rm.js
 [POSIX documentation]: https://man7.org/linux/man-pages/man1/cat.1p.html
 [Linux implementation]: https://man7.org/linux/man-pages/man1/cat.1.html
 [node:fs]: https://nodejs.org/api/fs.html
