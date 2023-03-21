@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/prantlf/cat.js/compare/v1.0.2...v2.0.0) (2023-03-21)
+
+
+### Bug Fixes
+
+* Rename the bin script to cat-j ([e9e1b70](https://github.com/prantlf/cat.js/commit/e9e1b70c6959e301797ed3dc571a2034f5abb0df))
+
+
+### BREAKING CHANGES
+
+* The name of the executable changed from "cat.js" to "cat-j". I'm sorry
+for that, but Windows mistake the suffix ".js" to a file extension and try execute it.
+NPM creates the original file name too, probably to support Cygwin.
+
 ## [1.0.2](https://github.com/prantlf/cat.js/compare/v1.0.1...v1.0.2) (2023-03-05)
 
 
